@@ -3,6 +3,7 @@ package com.jrrdl.project.services.impl;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.jrrdl.project.dtos.user.UserRequest;
 import com.jrrdl.project.dtos.user.UserResponse;
@@ -11,6 +12,11 @@ import com.jrrdl.project.models.User;
 import com.jrrdl.project.repository.UserRepository;
 import com.jrrdl.project.services.UserService;
 
+import jakarta.transaction.Transactional;
+
+
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
    private final UserRepository userRepository;
