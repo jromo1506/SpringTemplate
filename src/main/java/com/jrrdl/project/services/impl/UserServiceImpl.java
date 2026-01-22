@@ -43,7 +43,8 @@ public class UserServiceImpl implements UserService {
         user.setEmail(req.getEmail());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
-        return userResponseMapper(user);
+        User savedUser = userRepository.save(user); // 👈 AQUÍ
+        return userResponseMapper(savedUser);
     }
 
     @Override
@@ -66,7 +67,8 @@ public class UserServiceImpl implements UserService {
         () -> new RuntimeException("Not found"));
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
-        return userResponseMapper(user);
+        User savedUser = userRepository.save(user); // 👈 AQUÍ
+        return userResponseMapper(savedUser);
     }
 
     @Override
