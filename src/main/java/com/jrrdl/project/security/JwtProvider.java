@@ -25,6 +25,8 @@ public class JwtProvider {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+
+    //Guarda usuario en token, firma token setea caducidad
     public String generateToken(String username){
         return Jwts.builder()
         .setSubject(username)
