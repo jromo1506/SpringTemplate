@@ -31,23 +31,20 @@ public class SecurityConfig {
     public SecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
-    
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+ @Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .cors(cors -> cors
-            .configurationSource(corsConfigurationSource())
-        ) // <--- aquí pasamos tu CorsConfigurationSource
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
+            .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll() // 👈 CLAVE
             .anyRequest().authenticated()
         )
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
-    }
-
+}
     
 
     @Bean
