@@ -1,5 +1,10 @@
 package com.jrrdl.project.dtos.auth;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AuthResponse {
     
     private String token;
