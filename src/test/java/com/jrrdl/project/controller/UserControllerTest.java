@@ -1,14 +1,20 @@
 package com.jrrdl.project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jrrdl.project.controllers.AuthController;
 import com.jrrdl.project.controllers.UserController;
 import com.jrrdl.project.dtos.user.UserRequest;
 import com.jrrdl.project.dtos.user.UserResponse;
+import com.jrrdl.project.security.JwtFilter;
+import com.jrrdl.project.security.JwtProvider;
 import com.jrrdl.project.services.UserService;
 
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -21,7 +27,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @WebMvcTest(UserController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -31,6 +39,12 @@ public class UserControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @MockBean
+    JwtFilter jwtFilter;
+
+    @MockBean
+    JwtProvider jwtProvider;
 
     @Test
     void shouldGetAllUsers() throws Exception{
